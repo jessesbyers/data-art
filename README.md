@@ -72,3 +72,24 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 Video Tutorial: https://www.youtube.com/watch?v=rQroxWLZiCo
 
 ### Building Petals
+
+My data idea: A Year In Flowers
+    Average Daily Temperature => Number of Petals
+    Max Temp => Fill Color of Petals
+    Min Temp => Line Color of Petals
+
+SVG PATH
+1. Set petalPath
+petalPath = "M 0,0 C -10,-10 -10,-40 0,-50 C 10,-40 10,-10 0,0"
+
+2. Set up svg path
+html`<svg width="100" height="50"><path transform="translate(50,50)" d="${petalPath}"></svg>`
+
+3. Set petalSize
+petalSize = 50
+
+D3
+1. Set scales
+Scale Quantize -> data to number of petals
+Scale linear -> data to size of the petals
+
