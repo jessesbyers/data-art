@@ -78,6 +78,8 @@ My data idea: A Year In Flowers
     Max Temp => Fill Color of Petals
     Min Temp => Line Color of Petals
 
+    OpenWeather API: https://home.openweathermap.org/myservices
+
 SVG PATH
 1. Set petalPath
 petalPath = "M 0,0 C -10,-10 -10,-40 0,-50 C 10,-40 10,-10 0,0"
