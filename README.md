@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -65,7 +65,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify -->
 
 
 ## Notes
@@ -79,6 +79,9 @@ My data idea: A Year In Flowers
     Min Temp => Line Color of Petals
 
     OpenWeather API: https://home.openweathermap.org/myservices
+    Blog post on storing API keys in React: http://lortza.github.io/2018/05/22/create-react-app-api-keys.html
+
+    Observable Notebook: http://lortza.github.io/2018/05/22/create-react-app-api-keys.html
 
 SVG PATH
 1. Set petalPath
@@ -90,7 +93,12 @@ html`<svg width="100" height="50"><path transform="translate(50,50)" d="${petalP
 3. Set petalSize
 petalSize = 50
 
-D3
+***
+GET API DATA
+
+****
+IMPORT D3
+
 1. Set scales
 Scale Quantize -> data to number of petals
 Scale linear -> data to size of the petals
