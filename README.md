@@ -70,6 +70,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## Notes
 Video Tutorial: https://www.youtube.com/watch?v=rQroxWLZiCo
+Shirley Wu's Observable: https://observablehq.com/@shiffman/shirley-wu-d3-extravaganza
 
 ### Building Petals
 
@@ -78,12 +79,13 @@ My data idea: A Year In Flowers
     Max Temp => Fill Color of Petals
     Min Temp => Line Color of Petals
 
+    D3 documentation: https://github.com/d3/d3/wiki
     OpenWeather API: https://home.openweathermap.org/myservices
     Blog post on storing API keys in React: http://lortza.github.io/2018/05/22/create-react-app-api-keys.html
 
-    Observable Notebook: http://lortza.github.io/2018/05/22/create-react-app-api-keys.html
+    My Observable Notebook: http://lortza.github.io/2018/05/22/create-react-app-api-keys.html
 
-SVG PATH
+****SVG PATH
 1. Set petalPath
 petalPath = "M 0,0 C -10,-10 -10,-40 0,-50 C 10,-40 10,-10 0,0"
 
@@ -93,13 +95,23 @@ html`<svg width="100" height="50"><path transform="translate(50,50)" d="${petalP
 3. Set petalSize
 petalSize = 50
 
-***
+****
 GET API DATA
+data =d3.json('https://raw.githubusercontent.com/sxywu/filmflowers/master/movies.json').then(data => _.values(data));
 
 ****
 IMPORT D3
+d3 = require('d3')
 
-1. Set scales
-Scale Quantize -> data to number of petals
-Scale linear -> data to size of the petals
+
+****
+1. Set up svg with height and width
+2. Use extent to find min max range of data
+3. Scale linear -> data to size of the petals (domain to range)
+4. Scale Quantize -> data to number of petals (domain to range)
+5. Use scales to set numPetals and petSize using data
+6. Set up flowersData object with petalSize and array of petals (rotated around the circle)
+(see Observable notebook)
+
+
 
