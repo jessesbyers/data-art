@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import Flowers from './Components/Flowers'
 
 function App() {
 
   const [days, setDays] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
  
   useEffect( () => {
       async function fetchData() {
+        setIsLoading(true);
+
           let requestOptions = {
             method: 'GET',
             redirect: 'follow'
@@ -21,18 +25,22 @@ function App() {
           const response = await fetch(apiUrl, requestOptions)
           const data = await response.json()
           setDays(data)
+          setIsLoading(false);
       }
       fetchData();
   }, []);
 
   return (
-    <div>
-        {console.log(days)}
 
-      <h1 className="viz-title">viz 1</h1>
-      <div className="viz-1">
-      </div>
+    <div>
+      {isLoading ? (
+          <h1>Loading</h1>
+      ) : (
+        <Flowers data={days}/>
+      )}
     </div>
+
+    
   );
 }
 
