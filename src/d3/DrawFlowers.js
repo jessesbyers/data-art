@@ -9,12 +9,14 @@ export const drawFlowers = (days) => {
     console.log(data[0])
 
 
-
-    const petalPath = 'M 20,20 C -5,10 15,-20 20,-30 C 15,-20 45,10 0,0';
+    // const petalPath = 'M 0,0 C -25,-10 -5,-40 0,-50 C 5,-40 25,-10 0,0';       //original simple petals
+    // const petalPath = 'M 20,20 C -5,10 15,-20 20,-30 C 15,-20 45,10 0,0';   // crazy petals!
+    // const petalPath = 'M 0,0 C -50,-30 15,-40 15,-100 C 0,-40 50,-30 0,0';     // new fat/skinny petals (symmetrical)
+    const petalPath = 'M 0,0 C -40,-30 15,-40 15,-100 C 0,-40 50,-45 0,0';         //asymetrical
     const petalSize = 100
     const height = 800
-    const width = 800
-    const margin = 50
+    const width = 900
+    const margin = 100
 
 
         const svg = d3.select('.viz')
@@ -65,6 +67,8 @@ export const drawFlowers = (days) => {
           .attr('d', d => d.petalPath)
           .attr('transform', d => `rotate(${d.angle})`)
           .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360));
+        //   .attr('fill', "black");
+
         
         return svg
 }
