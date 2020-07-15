@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Flowers from './Components/Flowers'
+import { drawFlowers } from './d3/DrawFlowers'
+
+// import Flowers from './Components/Flowers'
 
 function App() {
 
@@ -24,6 +26,7 @@ function App() {
          
           const response = await fetch(apiUrl, requestOptions)
           const data = await response.json()
+          drawFlowers(data)
           setDays(data)
           setIsLoading(false);
       }
@@ -32,15 +35,14 @@ function App() {
 
   return (
 
-    <div>
-      {isLoading ? (
-          <h1>Loading</h1>
-      ) : (
-        <Flowers data={days}/>
-      )}
-    </div>
-
-    
+    // <div>
+    //   {isLoading ? (
+    //       <h1>Loading</h1>
+    //   ) : (
+        <div className="viz">
+        </div>
+    //   )}
+    // </div>
   );
 }
 
