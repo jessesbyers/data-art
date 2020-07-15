@@ -10,17 +10,18 @@ export const drawFlowers = (days) => {
 
 
 
-    const petalPath = 'M 0,0 C -25,-10 -5,-40 0,-50 C 5,-40 25,-10 0,0';
-    const petalSize = 50
-    const height = 500
-    const width = 500
+    const petalPath = 'M 20,20 C -5,10 15,-20 20,-30 C 15,-20 45,10 0,0';
+    const petalSize = 100
+    const height = 800
+    const width = 800
+    const margin = 50
 
 
         const svg = d3.select('.viz')
             // svg.html`<svg width="500" height="500"><path transform="translate(25,50)" d="${petalPath}"></svg>`
             // svg.html`<svg width="500" height="500"><path transform="translate(25,50)" d='M 0,0 C -25,-10 -5,-40 0,-50 C 5,-40 25,-10 0,0'></svg>`
             .append('svg')
-            // .attr('viewbox', [0, 0, petalSize * 10, petalSize * 10])
+            // .attr('viewbox', [25, 50, petalSize * 10, petalSize * 10])
             .attr('height', height)
             .attr('width', width)
 
@@ -54,8 +55,7 @@ export const drawFlowers = (days) => {
           .data(flowersData)
           .enter()
           .append('g')
-          .attr('transform', (d, i) => `translate(${(i % 5) * petalSize}, ${Math.floor(i / 5) * petalSize})scale(${d.petSize})`);
-      
+          .attr('transform', (d, i) => `translate(${(i % 8) * petalSize + margin}, ${Math.floor(i / 8) * petalSize + margin})scale(${d.petSize})`);
           console.log(flowers)
         
         flowers.selectAll('path')
@@ -67,7 +67,4 @@ export const drawFlowers = (days) => {
           .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360));
         
         return svg
-    
-
-
 }
