@@ -1,5 +1,8 @@
 import * as d3 from 'd3'
+import d3Tip from "d3-tip";
+
 let _ = require('lodash')
+
 
 export const drawFlowers = (days) => {
 
@@ -34,11 +37,16 @@ export const drawFlowers = (days) => {
         const windMinmax = d3.extent(data, d => d.wind_speed);
       
         const sizeScale = d3.scaleLinear().domain(windMinmax).range([0.25, 1]);
-        const numPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 6, 9, 12]);      
+        const numPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 6, 9, 12]);    
       
         const flowersData = _.map(data, d => {
           const numPetals = numPetalScale(d.temp.day);
           const petSize = sizeScale(d.wind_speed);
+          const date = new Date(d.dt * 1000).toLocaleDateString("en") 
+          const temperature = d.temp.day
+          const windSpeed = d.wind_speed
+
+
           return {
             petSize,
             petals: _.times(numPetals, i => {
@@ -48,17 +56,32 @@ export const drawFlowers = (days) => {
               }
             }),
             numPetals,
+            date,
+            temperature, 
+            windSpeed
           }
         })
         console.log(flowersData)
+
+    // setting up tooltip with data labels
+    const tip = d3Tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+        return "<p>" + "<span style='color:white'>" + "Date: " + d.dt + "<br/>" + "</span>"
+            // "<span style='color:#BD2D28'>" + "Temperature: " + d.temp.day + " F" + "<br/>" + "</span>" +
+            // "<span style='color:#E3BA22'>" + "Wind Speed: " + d.wind_speed + "<br/>" + "</span>"
+    })
         
         const flowers = d3.select('svg')
           .selectAll('g')
           .data(flowersData)
           .enter()
           .append('g')
-          .attr('transform', (d, i) => `translate(${(i % 8) * petalSize + margin}, ${Math.floor(i / 8) * petalSize + margin})scale(${d.petSize})`);
-          console.log(flowers)
+          .attr('transform', (d, i) => `translate(${(i % 8) * petalSize + margin}, ${Math.floor(i / 8) * petalSize + margin})scale(${d.petSize})`)
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide)
+
         
         flowers.selectAll('path')
           .data(d => d.petals)
@@ -66,8 +89,21 @@ export const drawFlowers = (days) => {
           .append('path')
           .attr('d', d => d.petalPath)
           .attr('transform', d => `rotate(${d.angle})`)
-          .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360));
+        //   .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360));
+          .attr('fill', (d, i) => d3.interpolateCool(d.angle / 360))
+
+
         //   .attr('fill', "black");
+
+    //  CODE FOR ADDING TEXT BELOW EACH FLOWER (OR ADD TO TOOLTIP)
+        // flowers.append('text')
+        //   .text(d => d.date)
+        // //   .text(d => d.temperature)
+        // //   .text(d => d.windSpeed)
+        //   .attr('text-anchor', 'middle')
+        //   .attr('y', petalSize - 50)
+
+        svg.call(tip);
 
         
         return svg

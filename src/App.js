@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { drawFlowers } from './d3/DrawFlowers'
+import './App.css';
 // import Flowers from './Components/Flowers'
 
 function App() {
 
-  const [days, setDays] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [days, setDays] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
 
  
   useEffect( () => {
       async function fetchData() {
-        setIsLoading(true);
+        // setIsLoading(true);
 
           let requestOptions = {
             method: 'GET',
@@ -26,8 +27,8 @@ function App() {
           const response = await fetch(apiUrl, requestOptions)
           const data = await response.json()
           drawFlowers(data)
-          setDays(data)
-          setIsLoading(false);
+          // setDays(data)
+          // setIsLoading(false);
       }
       fetchData();
   }, []);
