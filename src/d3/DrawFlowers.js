@@ -79,21 +79,22 @@ export const drawFlowers = (days) => {
 
     //  CODE FOR ADDING TEXT BELOW EACH FLOWER (OR ADD TO TOOLTIP)
         flowers.append('text')
-        //   .text(d => {
-              .html(function(d) {
-                  return (
-                  "<span>" + d.date + "<br/>" + "</span>" +
-                  "<span>" + "Temperature: " + d.temperature + " F" + "<br/>" + "</span>" +
-                  "<span>" + "Wind Speed: " + d.windSpeed + "<br/>" + "</span>"
-                  )
-              })
-        //     }
-        //   )
-        //   .text(d => d.temperature)
-        // //   .text(d => d.windSpeed)
+          .text(d => `${d.date}` )
           .attr('text-anchor', 'middle')
           .attr('y', petalSize + 10)
-          .attr("font-size", "1em")
+          .attr("font-size", "auto")
+
+        flowers.append('text')
+          .text(d => `Temperature: ${d.temperature} F` )
+          .attr('text-anchor', 'middle')
+          .attr('y', petalSize + 30)
+          .attr("font-size", "auto")
+
+        flowers.append('text')
+          .text(d => `Wind Speed: ${d.windSpeed} MPH` )
+          .attr('text-anchor', 'middle')
+          .attr('y', petalSize + 50)
+          .attr("font-size", "auto")
 
 
         return svg
@@ -118,3 +119,16 @@ export const drawFlowers = (days) => {
         //   .on('mouseout', tip.hide)
 
                     // flowers.call(tip);
+
+
+
+
+            //   .html(function(d) {
+                //   return (
+                //   "<span>" + d.date + "<br/>" + "</span>" +
+                //   "<span>" + "Temperature: " + d.temperature + " F" + "<br/>" + "</span>" +
+                //   "<span>" + "Wind Speed: " + d.windSpeed + "<br/>" + "</span>"
+                //   )
+            //   })
+        //     }
+        //   )
