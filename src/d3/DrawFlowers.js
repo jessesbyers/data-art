@@ -30,7 +30,17 @@ export const drawFlowers = (days) => {
             .attr('height', height)
             .attr('width', width)
 
+              // setting up tooltip with data labels
+              const tip = d3Tip()
+              .attr('class', 'd3-tip')
+            //   .offset([-10, 0])
+            .offset([50, 0])
 
+              .html(function(d) {
+                  return "<p>" + "<span style='color:white'>" + "Date: " + d.dt + "<br/>" + "</span>"
+                      // "<span style='color:#BD2D28'>" + "Temperature: " + d.temp.day + " F" + "<br/>" + "</span>" +
+                      // "<span style='color:#E3BA22'>" + "Wind Speed: " + d.wind_speed + "<br/>" + "</span>"
+              })
 
         const tempMinmax = d3.extent(data, d => d.temp.day);
 
@@ -46,7 +56,6 @@ export const drawFlowers = (days) => {
           const temperature = d.temp.day
           const windSpeed = d.wind_speed
 
-
           return {
             petSize,
             petals: _.times(numPetals, i => {
@@ -58,20 +67,12 @@ export const drawFlowers = (days) => {
             numPetals,
             date,
             temperature, 
-            windSpeed
+            windSpeed, 
           }
         })
         console.log(flowersData)
 
-    // setting up tooltip with data labels
-    const tip = d3Tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html(function(d) {
-        return "<p>" + "<span style='color:white'>" + "Date: " + d.dt + "<br/>" + "</span>"
-            // "<span style='color:#BD2D28'>" + "Temperature: " + d.temp.day + " F" + "<br/>" + "</span>" +
-            // "<span style='color:#E3BA22'>" + "Wind Speed: " + d.wind_speed + "<br/>" + "</span>"
-    })
+
         
         const flowers = d3.select('svg')
           .selectAll('g')
@@ -103,7 +104,7 @@ export const drawFlowers = (days) => {
         //   .attr('text-anchor', 'middle')
         //   .attr('y', petalSize - 50)
 
-        svg.call(tip);
+        flowers.call(tip);
 
         
         return svg
