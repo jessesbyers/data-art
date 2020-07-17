@@ -37,9 +37,10 @@ export const drawFlowers = (days) => {
             .offset([50, 0])
 
               .html(function(d) {
-                  return "<p>" + "<span style='color:white'>" + "Date: " + d.dt + "<br/>" + "</span>"
-                      // "<span style='color:#BD2D28'>" + "Temperature: " + d.temp.day + " F" + "<br/>" + "</span>" +
-                      // "<span style='color:#E3BA22'>" + "Wind Speed: " + d.wind_speed + "<br/>" + "</span>"
+                  console.log(d)
+                  return "<p>" + "<span style='color:white'>" + "Date: " + d.date + "<br/>" + "</span>" +
+                      "<span style='color:#BD2D28'>" + "Temperature: " + d.temperature + " F" + "<br/>" + "</span>" +
+                      "<span style='color:#E3BA22'>" + "Wind Speed: " + d.windSpeed + "<br/>" + "</span>"
               })
 
         const tempMinmax = d3.extent(data, d => d.temp.day);
@@ -97,12 +98,13 @@ export const drawFlowers = (days) => {
         //   .attr('fill', "black");
 
     //  CODE FOR ADDING TEXT BELOW EACH FLOWER (OR ADD TO TOOLTIP)
-        // flowers.append('text')
-        //   .text(d => d.date)
-        // //   .text(d => d.temperature)
+        flowers.append('text')
+        //   .text(d => d.date + d.temperature + d.windSpeed)
+          .text(d => d.temperature)
         // //   .text(d => d.windSpeed)
-        //   .attr('text-anchor', 'middle')
-        //   .attr('y', petalSize - 50)
+          .attr('text-anchor', 'middle')
+          .attr('y', petalSize + 10)
+          .attr("font-size", "1em")
 
         flowers.call(tip);
 
