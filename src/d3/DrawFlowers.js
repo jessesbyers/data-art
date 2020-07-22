@@ -31,7 +31,7 @@ export const drawFlowers = (days) => {
         const windMinmax = d3.extent(data, d => d.wind_speed);
       
         const sizeScale = d3.scaleLinear().domain(windMinmax).range([0.25, 1]);
-        const numPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 6, 9, 12]);    
+        const numPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 6, 9, 12]);   
       
         const flowersData = _.map(data, d => {
           const numPetals = numPetalScale(d.temp.day);
@@ -73,29 +73,31 @@ export const drawFlowers = (days) => {
           .append('path')
           .attr('d', d => d.petalPath)
           .attr('transform', d => `rotate(${d.angle})`)
-          .attr('fill', (d, i) => d3.interpolateCool(d.angle / 360))
+        //   .attr('fill', (d, i) => d3.interpolateCool(d.angle / 360))
+        .attr('fill', (d, i) => i % 2 === 0 ? d3.interpolateCool(d.angle / 360) : d3.interpolateWarm(d.angle / 360))
+                //   .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360))
+
+
 
 
 
     //  CODE FOR ADDING TEXT BELOW EACH FLOWER (OR ADD TO TOOLTIP)
         flowers.append('text')
           .text(d => `${d.date}` )
+        //   .attr("transform","translate(0, 0) scale(1, 1)")
           .attr('text-anchor', 'middle')
+        //   .attr('font-size', '100px')
           .attr('y', petalSize + 10)
-          .attr("font-size", "auto")
 
         flowers.append('text')
           .text(d => `Temperature: ${d.temperature} F` )
           .attr('text-anchor', 'middle')
           .attr('y', petalSize + 30)
-          .attr("font-size", "auto")
 
         flowers.append('text')
           .text(d => `Wind Speed: ${d.windSpeed} MPH` )
           .attr('text-anchor', 'middle')
           .attr('y', petalSize + 50)
-          .attr("font-size", "auto")
-
 
         return svg
 }
