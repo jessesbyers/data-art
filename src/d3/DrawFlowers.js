@@ -10,13 +10,10 @@ export const drawFlowers = (days) => {
     console.log(data)
     console.log(data[0])
 
-
-    // const petalPath = 'M 0,0 C -25,-10 -5,-40 0,-50 C 5,-40 25,-10 0,0';       //original simple petals
-    // const petalPath = 'M 20,20 C -5,10 15,-20 20,-30 C 15,-20 45,10 0,0';   // crazy petals!
-    // const petalPath = 'M 0,0 C -50,-30 15,-40 15,-100 C 0,-40 50,-30 0,0';     // new fat/skinny petals (symmetrical)
     const petalPath = 'M 0,0 C -40,-30 15,-40 15,-100 C 0,-40 50,-45 0,0';         //asymetrical
-    const petalSize = 100
-    const height = 800
+
+    const petalSize = 150
+    const height = 1300
     const width = 900
     const margin = 100
 
@@ -29,13 +26,15 @@ export const drawFlowers = (days) => {
         const tempMinmax = d3.extent(data, d => d.temp.day);
 
         const windMinmax = d3.extent(data, d => d.wind_speed);
-      
+
         const sizeScale = d3.scaleLinear().domain(windMinmax).range([0.25, 1]);
-        const numPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 6, 9, 12]);   
+        const numPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);   
       
         const flowersData = _.map(data, d => {
           const numPetals = numPetalScale(d.temp.day);
-          const petSize = sizeScale(d.wind_speed);
+        //   const petSize = sizeScale(d.wind_speed);
+        const petSize = 1
+
           const date = new Date(d.dt * 1000).toLocaleDateString("en") 
           const temperature = d.temp.day
           const windSpeed = d.wind_speed
@@ -58,46 +57,51 @@ export const drawFlowers = (days) => {
 
 
         
-        const flowers = d3.select('svg')
+        const tempFlowers = d3.select('svg')
           .selectAll('g')
           .data(flowersData)
           .enter()
           .append('g')
-          .attr('transform', (d, i) => `translate(${(i % 8) * petalSize + margin}, ${Math.floor(i / 8) * petalSize + margin})scale(${d.petSize})`)
+          .attr('transform', (d, i) => `translate(${(i % 1) * petalSize + margin}, ${Math.floor(i / 1) * petalSize + margin})scale(${d.petSize})`)
 
 
         
-        flowers.selectAll('path')
+        tempFlowers.selectAll('path')
           .data(d => d.petals)
           .enter()
           .append('path')
           .attr('d', d => d.petalPath)
           .attr('transform', d => `rotate(${d.angle})`)
-        //   .attr('fill', (d, i) => d3.interpolateCool(d.angle / 360))
-        .attr('fill', (d, i) => i % 2 === 0 ? d3.interpolateCool(d.angle / 360) : d3.interpolateWarm(d.angle / 360))
-                //   .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360))
+          .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360))
+        // .attr('fill', (d, i) => i % 2 === 0 ? d3.interpolateCool(d.angle / 360) : d3.interpolateWarm(d.angle / 360))
 
 
 
 
 
     //  CODE FOR ADDING TEXT BELOW EACH FLOWER (OR ADD TO TOOLTIP)
-        flowers.append('text')
+        tempFlowers.append('text')
           .text(d => `${d.date}` )
         //   .attr("transform","translate(0, 0) scale(1, 1)")
           .attr('text-anchor', 'middle')
-        //   .attr('font-size', '100px')
-          .attr('y', petalSize + 10)
+        //   .attr('font-size', "100px")
+        .attr('y', -20)
+        .attr('x', petalSize + 10)
 
-        flowers.append('text')
+
+        tempFlowers.append('text')
           .text(d => `Temperature: ${d.temperature} F` )
           .attr('text-anchor', 'middle')
-          .attr('y', petalSize + 30)
+          .attr('y', 0)
+          .attr('x', petalSize + 10)
 
-        flowers.append('text')
+
+        tempFlowers.append('text')
           .text(d => `Wind Speed: ${d.windSpeed} MPH` )
           .attr('text-anchor', 'middle')
-          .attr('y', petalSize + 50)
+          .attr('y', 20)
+          .attr('x', petalSize + 10)
+
 
         return svg
 }
@@ -134,3 +138,8 @@ export const drawFlowers = (days) => {
             //   })
         //     }
         //   )
+
+
+            // const petalPath = 'M 0,0 C -25,-10 -5,-40 0,-50 C 5,-40 25,-10 0,0';       //original simple petals
+    // const petalPath = 'M 20,20 C -5,10 15,-20 20,-30 C 15,-20 45,10 0,0';   // crazy petals!
+    // const petalPath = 'M 0,0 C -50,-30 15,-40 15,-100 C 0,-40 50,-30 0,0';     // new fat/skinny petals (symmetrical)
