@@ -27,11 +27,15 @@ export const drawFlowers = (days) => {
 
         const windMinmax = d3.extent(data, d => d.wind_speed);
 
-        const sizeScale = d3.scaleLinear().domain(windMinmax).range([0.25, 1]);
-        const numPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);   
+        // const sizeScale = d3.scaleLinear().domain(windMinmax).range([0.25, 1]);
+        const tPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);   
+        const wPetalScale = d3.scaleQuantize().domain(windMinmax).range([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);   
+
       
         const flowersData = _.map(data, d => {
-          const numPetals = numPetalScale(d.temp.day);
+          const tempPetals = tPetalScale(d.temp.day);
+          const windPetals = wPetalScale(d.wind_speed);
+
         //   const petSize = sizeScale(d.wind_speed);
         const petSize = 1
 
@@ -41,13 +45,20 @@ export const drawFlowers = (days) => {
 
           return {
             petSize,
-            petals: _.times(numPetals, i => {
+            tPetals: _.times(tempPetals, i => {
               return {
-                angle: 360 * i / numPetals, 
+                angle: 360 * i / tempPetals, 
                 petalPath
               }
             }),
-            numPetals,
+            wPetals: _.times(windPetals, i => {
+                return {
+                  angle: 360 * i / windPetals, 
+                  petalPath
+                }
+              }),
+            tempPetals,
+            windPetals,
             date,
             temperature, 
             windSpeed, 
@@ -67,7 +78,7 @@ export const drawFlowers = (days) => {
 
         
         tempFlowers.selectAll('path')
-          .data(d => d.petals)
+          .data(d => d.tPetals)
           .enter()
           .append('path')
           .attr('d', d => d.petalPath)
@@ -103,43 +114,17 @@ export const drawFlowers = (days) => {
           .attr('x', petalSize + 10)
 
 
+
+        //   adding wind flowers
+        tempFlowers.append('g')
+            .attr("transform", "translate(325, 0)")
+            .selectAll('path')
+            .data(d => d.wPetals)
+          .enter()
+          .append('path')
+          .attr('d', d => d.petalPath)
+          .attr('transform', d => `rotate(${d.angle})`)
+          .attr('fill', (d, i) => d3.interpolateCool(d.angle / 360))
+
         return svg
 }
-
-              // setting up tooltip with data labels
-            //   const tip = d3Tip()
-            //   .attr('class', 'd3-tip')
-            // //   .offset([-10, 0])
-            // .offset([50, 0])
-
-            //   .html(function(d) {
-            //       console.log(d)
-            //       return "<p>" + "<span style='color:white'>" + "Date: " + d.date + "<br/>" + "</span>" +
-            //           "<span style='color:#BD2D28'>" + "Temperature: " + d.temperature + " F" + "<br/>" + "</span>" +
-            //           "<span style='color:#E3BA22'>" + "Wind Speed: " + d.windSpeed + "<br/>" + "</span>"
-            //   })
-
-
-
-                    //   .on('mouseover', tip.show)
-        //   .on('mouseout', tip.hide)
-
-                    // flowers.call(tip);
-
-
-
-
-            //   .html(function(d) {
-                //   return (
-                //   "<span>" + d.date + "<br/>" + "</span>" +
-                //   "<span>" + "Temperature: " + d.temperature + " F" + "<br/>" + "</span>" +
-                //   "<span>" + "Wind Speed: " + d.windSpeed + "<br/>" + "</span>"
-                //   )
-            //   })
-        //     }
-        //   )
-
-
-            // const petalPath = 'M 0,0 C -25,-10 -5,-40 0,-50 C 5,-40 25,-10 0,0';       //original simple petals
-    // const petalPath = 'M 20,20 C -5,10 15,-20 20,-30 C 15,-20 45,10 0,0';   // crazy petals!
-    // const petalPath = 'M 0,0 C -50,-30 15,-40 15,-100 C 0,-40 50,-30 0,0';     // new fat/skinny petals (symmetrical)
