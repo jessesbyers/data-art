@@ -1,5 +1,10 @@
+// TO DO:
+    // Design different petalPath for each type of weather data
+    // Design color scheme for each type of data
+    // add buttons to change location
+
+
 import * as d3 from 'd3'
-// import d3Tip from "d3-tip";
 let _ = require('lodash')
 
 
@@ -151,6 +156,27 @@ export const drawFlowers = (days) => {
           .attr('text-anchor', 'middle')
           .attr('y', 40)
           .attr('x', -200)
+
+
+
+        // adding header labels
+        svg.append('text')
+            .text("Temperature (degrees F)")
+            .attr('text-anchor', 'middle')
+            .attr('y', 75)
+            .attr('x', 300)
+
+        svg.append('text')
+            .text("Wind Speed (MPH)")
+            .attr('text-anchor', 'middle')
+            .attr('y', 75)
+            .attr('x', 500)
+
+        svg.append('text')
+            .text("Precipitation (mm)")
+            .attr('text-anchor', 'middle')
+            .attr('y', 75)
+            .attr('x', 700)
 
 
         return svg

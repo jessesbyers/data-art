@@ -19,11 +19,13 @@ function App() {
           };
 
           let apiKey = process.env.REACT_APP_API_KEY
+          let lat = "44.811345"
+          let lon = "-73.149572"
 
-          // set to Chicago. Use a form and local state to inject user data into fetch url
-          // add toggle to switch from celcius to fahrenheit
-          let apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&units=imperial&exclude=current,minutely,hourly&appid=" + apiKey
-         
+
+          // set to St Albans. Use a form and local state to inject user data into fetch url
+          let apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=current,minutely,hourly&appid=" + apiKey
+
           const response = await fetch(apiUrl, requestOptions)
           const data = await response.json()
           drawFlowers(data)
