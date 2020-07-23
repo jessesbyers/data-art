@@ -15,7 +15,10 @@ export const drawFlowers = (days) => {
     console.log(data)
     console.log(data[0])
 
-    const petalPath = 'M 0,0 C -40,-30 15,-40 15,-100 C 0,-40 50,-45 0,0';         //asymetrical
+    // const tPetalPath = 'M 0,0 C -20,-50 0,-30 0,-100 C 0,-30 20,-50 0,0';         //TEMPERATURE: asymetrical
+    const tPetalPath = 'M 0,0 C -30,-30 -30,-30 0,-100 C 30,-30 30,-30 0,0'
+    const wPetalPath = 'M 0,0 C -40,-40 15,-50 50,-100 C 0,-50 0,0 0,0';         //WIND: asymetrical
+    const pPetalPath = 'M 0,0 C -60,-30 0,-40 0,-100 C 0,-40 60,-30 0,0';         //PRECIPITATION: asymetrical
 
     const petalSize = 150
     const height = 1500
@@ -60,19 +63,19 @@ export const drawFlowers = (days) => {
             tPetals: _.times(tempPetals, i => {
               return {
                 angle: 360 * i / tempPetals, 
-                petalPath
+                tPetalPath
               }
             }),
             wPetals: _.times(windPetals, i => {
                 return {
                   angle: 360 * i / windPetals, 
-                  petalPath
+                  wPetalPath
                 }
               }),
             pPetals: _.times(precipPetals, i => {
             return {
                 angle: 360 * i / precipPetals, 
-                petalPath
+                pPetalPath
             }
             }),
             tempPetals,
@@ -101,7 +104,7 @@ export const drawFlowers = (days) => {
           .data(d => d.tPetals)
           .enter()
           .append('path')
-          .attr('d', d => d.petalPath)
+          .attr('d', d => d.tPetalPath)
           .attr('transform', d => `rotate(${d.angle})`)
           .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360))
 
@@ -114,7 +117,7 @@ export const drawFlowers = (days) => {
             .data(d => d.wPetals)
           .enter()
           .append('path')
-          .attr('d', d => d.petalPath)
+          .attr('d', d => d.wPetalPath)
           .attr('transform', d => `rotate(${d.angle})`)
           .attr('fill', (d, i) => d3.interpolateCool(d.angle / 360))
 
@@ -127,7 +130,7 @@ export const drawFlowers = (days) => {
         .data(d => d.pPetals)
       .enter()
       .append('path')
-      .attr('d', d => d.petalPath)
+      .attr('d', d => d.pPetalPath)
       .attr('transform', d => `rotate(${d.angle})`)
       .attr('fill', (d, i) => d3.interpolateTurbo(d.angle / 360))
 
