@@ -93,86 +93,86 @@ export const drawFlowers = (days) => {
           .attr('transform', (d, i) => `translate(${(i % 1) * petalSize + sideMargin}, ${Math.floor(i / 1) * petalSize + topMargin})scale(${d.petSize})`)
 
         
-        //   adding temperature flowers
-        flowers.selectAll('path')
-          .data(d => d.tPetals)
-          .enter()
-          .append('path')
-          .attr('d', d => d.tPetalPath)
-          .attr('transform', d => `rotate(${d.angle})`)
-          .attr('fill', (d, i) => d3.interpolateYlOrRd(d.angle / 360))
+//   adding temperature flowers
+flowers.selectAll('path')
+    .data(d => d.tPetals)
+    .enter()
+    .append('path')
+    .attr('d', d => d.tPetalPath)
+    .attr('transform', d => `rotate(${d.angle})`)
+    .attr('fill', (d, i) => d3.interpolateYlOrRd(d.angle / 360))
 
 
 
-        //   adding wind flowers
-        flowers.append('g')
-            .attr("transform", "translate(200, 0)")
-            .selectAll('path')
-            .data(d => d.wPetals)
-          .enter()
-          .append('path')
-          .attr('d', d => d.wPetalPath)
-          .attr('transform', d => `rotate(${d.angle})`)
-          .attr('fill', (d, i) => d3.interpolateBuGn(d.angle / 360))
+//   adding wind flowers
+flowers.append('g')
+    .attr("transform", "translate(200, 0)")
+    .selectAll('path')
+    .data(d => d.wPetals)
+    .enter()
+    .append('path')
+    .attr('d', d => d.wPetalPath)
+    .attr('transform', d => `rotate(${d.angle})`)
+    .attr('fill', (d, i) => d3.interpolateBuGn(d.angle / 360))
 
 
-        // adding precipitation amount flowers 
-        flowers.append('g')
-        .attr("transform", "translate(400, 0)")
-        .selectAll('path')
-        .data(d => d.pPetals)
-      .enter()
-      .append('path')
-      .attr('d', d => d.pPetalPath)
-      .attr('transform', d => `rotate(${d.angle})`)
-      .attr('fill', (d, i) => d3.interpolateYlGnBu(d.angle / 360))
+// adding precipitation amount flowers 
+flowers.append('g')
+    .attr("transform", "translate(400, 0)")
+    .selectAll('path')
+    .data(d => d.pPetals)
+    .enter()
+    .append('path')
+    .attr('d', d => d.pPetalPath)
+    .attr('transform', d => `rotate(${d.angle})`)
+    .attr('fill', (d, i) => d3.interpolateYlGnBu(d.angle / 360))
 
 
-        //  CODE FOR ADDING TEXT FOR EACH FLOWER
-        flowers.append('text')
-          .text(d => `${d.date}` )
-          .attr('text-anchor', 'middle')
-          .attr('y', -20)
-          .attr('x', -200)
+//  CODE FOR ADDING TEXT FOR EACH FLOWER
+flowers.append('text')
+    .text(d => `${d.date}` )
+    .attr('text-anchor', 'middle')
+    .attr('y', -20)
+    .attr('x', -200)
 
-        flowers.append('text')
-          .text(d => `Temperature: ${d.temperature} F` )
-          .attr('text-anchor', 'middle')
-          .attr('y', 0)
-          .attr('x', -200)
+flowers.append('text')
+    .text(d => `Temperature: ${d.temperature} F` )
+    .attr('text-anchor', 'middle')
+    .attr('y', 0)
+    .attr('x', -200)
 
-        flowers.append('text')
-          .text(d => `Wind Speed: ${d.windSpeed} MPH` )
-          .attr('text-anchor', 'middle')
-          .attr('y', 20)
-          .attr('x', -200)
+flowers.append('text')
+    .text(d => `Wind Speed: ${d.windSpeed} MPH` )
+    .attr('text-anchor', 'middle')
+    .attr('y', 20)
+    .attr('x', -200)
 
-        flowers.append('text')
-          .text(d => d.precip ? `Precipitation: ${d.precip} mm` : `Precipitation: 0 mm`)
-          .attr('text-anchor', 'middle')
-          .attr('y', 40)
-          .attr('x', -200)
+flowers.append('text')
+    .text(d => d.precip ? `Precipitation: ${d.precip} mm` : `Precipitation: 0 mm`)
+    .attr('text-anchor', 'middle')
+    .attr('y', 40)
+    .attr('x', -200)
 
 
 
-        // adding header labels to the svg
-        svg.append('text')
-            .text("Temperature (degrees F)")
-            .attr('text-anchor', 'middle')
-            .attr('y', 75)
-            .attr('x', 300)
+// adding header labels to the svg
+svg.append('text')
+    .text("Temperature (degrees F)")
+    .attr('text-anchor', 'middle')
+    .attr('y', 75)
+    .attr('x', 300)
 
-        svg.append('text')
-            .text("Wind Speed (MPH)")
-            .attr('text-anchor', 'middle')
-            .attr('y', 75)
-            .attr('x', 500)
+svg.append('text')
+    .text("Wind Speed (MPH)")
+    .attr('text-anchor', 'middle')
+    .attr('y', 75)
+    .attr('x', 500)
 
-        svg.append('text')
-            .text("Precipitation (mm)")
-            .attr('text-anchor', 'middle')
-            .attr('y', 75)
-            .attr('x', 700)
+svg.append('text')
+    .text("Precipitation (mm)")
+    .attr('text-anchor', 'middle')
+    .attr('y', 75)
+    .attr('x', 700)
 
 
         return svg

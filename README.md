@@ -68,7 +68,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify -->
 
 
-## Notes
+<!-- ## Notes
 Video Tutorial: https://www.youtube.com/watch?v=rQroxWLZiCo
 Shirley Wu's Observable: https://observablehq.com/@shiffman/shirley-wu-d3-extravaganza
 
@@ -111,7 +111,7 @@ d3 = require('d3')
 4. Scale Quantize -> data to number of petals (domain to range)
 5. Use scales to set numPetals and petSize using data
 6. Set up flowersData object with petalSize and array of petals (rotated around the circle)
-(see Observable notebook)
+(see Observable notebook) -->
 
 
 
