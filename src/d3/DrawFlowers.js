@@ -1,5 +1,4 @@
 // TO DO:
-    // Design different petalPath for each type of weather data
     // Design color scheme for each type of data
     // add buttons to change location
 
@@ -14,8 +13,8 @@ export const drawFlowers = (days) => {
     console.log(data)
 
     // setting petal shapes 
-    const tPetalPath = 'M 0,0 C -30,-30 -30,-30 0,-100 C 30,-30 30,-30 0,0'     //TEMPERATURE
-    const wPetalPath = 'M 0,0 C -40,-40 15,-50 50,-100 C 0,-50 0,0 0,0';        //WIND
+    const tPetalPath = 'M 0,0 C -30,-30 -30,-30 0,-100 C 30,-30 30,-30 0,0';     //TEMPERATURE
+    const wPetalPath = 'M 0,0 C -40,-40 15,-50 50,-100 C 0,-50 0,0 0,0';        //WIND SPEED
     const pPetalPath = 'M 0,0 C -60,-30 0,-40 0,-100 C 0,-40 60,-30 0,0';       //PRECIPITATION
 
     const petalSize = 150
@@ -46,9 +45,7 @@ export const drawFlowers = (days) => {
           const tempPetals = tPetalScale(d.temp.day);
           const windPetals = wPetalScale(d.wind_speed);
           const precipPetals = pPetalScale(d.rain);
-
-        //   const petSize = sizeScale(d.wind_speed);
-        const petSize = 1
+          const petSize = 1
 
           const date = new Date(d.dt * 1000).toLocaleDateString("en") 
           const temperature = d.temp.day
@@ -104,6 +101,7 @@ export const drawFlowers = (days) => {
           .attr('d', d => d.tPetalPath)
           .attr('transform', d => `rotate(${d.angle})`)
           .attr('fill', (d, i) => d3.interpolateYlOrRd(d.angle / 360))
+
 
 
         //   adding wind flowers
