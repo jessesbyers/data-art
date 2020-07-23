@@ -83,7 +83,7 @@ export const drawFlowers = (days) => {
 
 
         
-        const tempFlowers = d3.select('svg')
+        const flowers = d3.select('svg')
           .selectAll('g')
           .data(flowersData)
           .enter()
@@ -92,7 +92,7 @@ export const drawFlowers = (days) => {
           .attr('transform', (d, i) => `translate(${(i % 1) * petalSize + sideMargin}, ${Math.floor(i / 1) * petalSize + topMargin})scale(${d.petSize})`)
 
         
-        tempFlowers.selectAll('path')
+        flowers.selectAll('path')
           .data(d => d.tPetals)
           .enter()
           .append('path')
@@ -103,7 +103,7 @@ export const drawFlowers = (days) => {
 
 
         //   adding wind flowers
-        tempFlowers.append('g')
+        flowers.append('g')
             .attr("transform", "translate(200, 0)")
             .selectAll('path')
             .data(d => d.wPetals)
@@ -116,7 +116,7 @@ export const drawFlowers = (days) => {
 
         // adding precipitation amount flowers (amount in mm)
 
-        tempFlowers.append('g')
+        flowers.append('g')
         .attr("transform", "translate(400, 0)")
         .selectAll('path')
         .data(d => d.pPetals)
@@ -128,26 +128,26 @@ export const drawFlowers = (days) => {
 
 
         //  CODE FOR ADDING TEXT FOR EACH FLOWER
-        tempFlowers.append('text')
+        flowers.append('text')
           .text(d => `${d.date}` )
           .attr('text-anchor', 'middle')
           .attr('y', -20)
           .attr('x', -200)
 
-        tempFlowers.append('text')
+        flowers.append('text')
           .text(d => `Temperature: ${d.temperature} F` )
           .attr('text-anchor', 'middle')
           .attr('y', 0)
           .attr('x', -200)
 
-        tempFlowers.append('text')
+        flowers.append('text')
           .text(d => `Wind Speed: ${d.windSpeed} MPH` )
           .attr('text-anchor', 'middle')
           .attr('y', 20)
           .attr('x', -200)
 
-        tempFlowers.append('text')
-          .text(d => `Precipitation: ${d.precip} mm` )
+        flowers.append('text')
+          .text(d => d.precip ? `Precipitation: ${d.precip} mm` : `Precipitation: 0 mm`)
           .attr('text-anchor', 'middle')
           .attr('y', 40)
           .attr('x', -200)
