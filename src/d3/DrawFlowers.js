@@ -11,14 +11,11 @@ let _ = require('lodash')
 export const drawFlowers = (days) => {
 
     const data = days.daily
-
     console.log(data)
-    console.log(data[0])
 
-    // const tPetalPath = 'M 0,0 C -20,-50 0,-30 0,-100 C 0,-30 20,-50 0,0';         //TEMPERATURE: asymetrical
-    const tPetalPath = 'M 0,0 C -30,-30 -30,-30 0,-100 C 30,-30 30,-30 0,0'
-    const wPetalPath = 'M 0,0 C -40,-40 15,-50 50,-100 C 0,-50 0,0 0,0';         //WIND: asymetrical
-    const pPetalPath = 'M 0,0 C -60,-30 0,-40 0,-100 C 0,-40 60,-30 0,0';         //PRECIPITATION: asymetrical
+    const tPetalPath = 'M 0,0 C -30,-30 -30,-30 0,-100 C 30,-30 30,-30 0,0'     //TEMPERATURE
+    const wPetalPath = 'M 0,0 C -40,-40 15,-50 50,-100 C 0,-50 0,0 0,0';        //WIND
+    const pPetalPath = 'M 0,0 C -60,-30 0,-40 0,-100 C 0,-40 60,-30 0,0';       //PRECIPITATION
 
     const petalSize = 150
     const height = 1500
@@ -38,10 +35,10 @@ export const drawFlowers = (days) => {
 
         const precipMinmax = d3.extent(data, d => d.rain);
 
-        // const sizeScale = d3.scaleLinear().domain(windMinmax).range([0.25, 1]);
-        const tPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);   
-        const wPetalScale = d3.scaleQuantize().domain(windMinmax).range([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]); 
-        const pPetalScale = d3.scaleQuantize().domain(precipMinmax).range([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);   
+        // const sizeScale = d3.scaleLinear().domain(windMinmax).range([0.25, 1]);      // FOR SCALING BASED ON WIND SPEED
+        const tPetalScale = d3.scaleQuantize().domain(tempMinmax).range([3, 5, 7, 9, 11, 13]);   
+        const wPetalScale = d3.scaleQuantize().domain(windMinmax).range([3, 6, 9, 12, 15, 18]); 
+        const pPetalScale = d3.scaleQuantize().domain(precipMinmax).range([3, 4, 5, 6, 7, 8]);   
   
 
       
