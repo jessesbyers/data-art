@@ -70,3 +70,11 @@
 g text {
   font-size: 10px;
 }
+
+body {
+  background-color: black;
+}
+
+svg text {
+  fill: white;
+}
