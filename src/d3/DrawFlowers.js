@@ -13,6 +13,7 @@ export const drawFlowers = (days) => {
     const data = days.daily
     console.log(data)
 
+    // setting petal shapes 
     const tPetalPath = 'M 0,0 C -30,-30 -30,-30 0,-100 C 30,-30 30,-30 0,0'     //TEMPERATURE
     const wPetalPath = 'M 0,0 C -40,-40 15,-50 50,-100 C 0,-50 0,0 0,0';        //WIND
     const pPetalPath = 'M 0,0 C -60,-30 0,-40 0,-100 C 0,-40 60,-30 0,0';       //PRECIPITATION
@@ -23,16 +24,15 @@ export const drawFlowers = (days) => {
     const sideMargin = 300
     const topMargin = 200
 
-
+        // adding svg element to the DOM
         const svg = d3.select('.viz')
             .append('svg')
             .attr('height', height)
             .attr('width', width)
 
+        // finding domain of data for temperature, precipitation, and wind speed
         const tempMinmax = d3.extent(data, d => d.temp.day);
-
         const windMinmax = d3.extent(data, d => d.wind_speed);
-
         const precipMinmax = d3.extent(data, d => d.rain);
 
         // const sizeScale = d3.scaleLinear().domain(windMinmax).range([0.25, 1]);      // FOR SCALING BASED ON WIND SPEED
@@ -41,7 +41,7 @@ export const drawFlowers = (days) => {
         const pPetalScale = d3.scaleQuantize().domain(precipMinmax).range([3, 4, 5, 6, 7, 8]);   
   
 
-      
+    //   setting up flower data to pass to each group
         const flowersData = _.map(data, d => {
           const tempPetals = tPetalScale(d.temp.day);
           const windPetals = wPetalScale(d.wind_speed);
@@ -87,16 +87,16 @@ export const drawFlowers = (days) => {
         console.log(flowersData)
 
 
-        
+        // adding flower groups and binding flower data to each group
         const flowers = d3.select('svg')
           .selectAll('g')
           .data(flowersData)
           .enter()
           .append('g')
-
           .attr('transform', (d, i) => `translate(${(i % 1) * petalSize + sideMargin}, ${Math.floor(i / 1) * petalSize + topMargin})scale(${d.petSize})`)
 
         
+        //   adding temperature flowers
         flowers.selectAll('path')
           .data(d => d.tPetals)
           .enter()
@@ -104,10 +104,6 @@ export const drawFlowers = (days) => {
           .attr('d', d => d.tPetalPath)
           .attr('transform', d => `rotate(${d.angle})`)
           .attr('fill', (d, i) => d3.interpolateYlOrRd(d.angle / 360))
-
-
-
-
 
 
         //   adding wind flowers
@@ -122,8 +118,7 @@ export const drawFlowers = (days) => {
           .attr('fill', (d, i) => d3.interpolateBuGn(d.angle / 360))
 
 
-        // adding precipitation amount flowers (amount in mm)
-
+        // adding precipitation amount flowers 
         flowers.append('g')
         .attr("transform", "translate(400, 0)")
         .selectAll('path')
@@ -162,7 +157,7 @@ export const drawFlowers = (days) => {
 
 
 
-        // adding header labels
+        // adding header labels to the svg
         svg.append('text')
             .text("Temperature (degrees F)")
             .attr('text-anchor', 'middle')
