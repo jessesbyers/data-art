@@ -103,7 +103,10 @@ export const drawFlowers = (days) => {
           .append('path')
           .attr('d', d => d.tPetalPath)
           .attr('transform', d => `rotate(${d.angle})`)
-          .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360))
+          .attr('fill', (d, i) => d3.interpolateYlOrRd(d.angle / 360))
+
+
+
 
 
 
@@ -116,7 +119,7 @@ export const drawFlowers = (days) => {
           .append('path')
           .attr('d', d => d.wPetalPath)
           .attr('transform', d => `rotate(${d.angle})`)
-          .attr('fill', (d, i) => d3.interpolateCool(d.angle / 360))
+          .attr('fill', (d, i) => d3.interpolateBuGn(d.angle / 360))
 
 
         // adding precipitation amount flowers (amount in mm)
@@ -129,7 +132,7 @@ export const drawFlowers = (days) => {
       .append('path')
       .attr('d', d => d.pPetalPath)
       .attr('transform', d => `rotate(${d.angle})`)
-      .attr('fill', (d, i) => d3.interpolateTurbo(d.angle / 360))
+      .attr('fill', (d, i) => d3.interpolateYlGnBu(d.angle / 360))
 
 
         //  CODE FOR ADDING TEXT FOR EACH FLOWER
