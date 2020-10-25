@@ -12,4 +12,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+console.log(document.body)
+
 serviceWorker.unregister();
