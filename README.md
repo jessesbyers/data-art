@@ -81,6 +81,7 @@ My data idea: A Year In Flowers
 
     D3 documentation: https://github.com/d3/d3/wiki
     OpenWeather API: https://home.openweathermap.org/myservices
+    Sunrise-Sunset API: https://sunrise-sunset.org/api
     Blog post on storing API keys in React: http://lortza.github.io/2018/05/22/create-react-app-api-keys.html
 
     My Observable Notebook: http://lortza.github.io/2018/05/22/create-react-app-api-keys.html

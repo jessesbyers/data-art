@@ -78,3 +78,7 @@ body {
 svg text {
   fill: white;
 }
+
+.nav {
+  color: white;
+}
